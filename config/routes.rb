@@ -9,9 +9,19 @@ PhotoGallery::Application.routes.draw do
   # Sample of named route:
   #   match 'products/:id/purchase' => 'catalog#purchase', :as => :purchase
   # This route can be invoked with purchase_url(:id => product.id)
+  match 'signin'    => 'users#signin',     :as => :signin
+  match 'logout'    => 'users#logout',     :as => :logout
 
-  # Sample resource route (maps HTTP verbs to controller actions automatically):
-  #   resources :products
+  resources :users do
+    collection do
+      get   :signin, :logout
+      post  :signin
+    end
+
+    resources :galleries do
+      resources :photos
+    end
+  end
 
   # Sample resource route with options:
   #   resources :products do
@@ -48,7 +58,7 @@ PhotoGallery::Application.routes.draw do
 
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
-  # root :to => 'welcome#index'
+  root :to => 'welcome#index'
 
   # See how all your routes lay out with "rake routes"
 

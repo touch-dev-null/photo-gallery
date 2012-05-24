@@ -1,0 +1,13 @@
+#site_name
+  =link_to APP_CONFIG['site_name'], root_path
+
+#actions
+  - if user_loggin_in?
+    =link_to t('.create_gallery'), new_user_gallery_path(current_user)
+    =link_to t('.upload_photo'), '#'
+    =link_to t('.Statistic'), '#'
+    =link_to t('.logout'), logout_path
+  - else
+    =link_to t('.login'), signin_users_path
+
+%br.clearfix

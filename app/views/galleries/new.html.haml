@@ -1,0 +1,9 @@
+#create_new_gallery
+
+  %h2= t('gallery.create_new_gallery')
+
+  =form_for :gallery, :url => user_galleries_path do |f|
+    =f.label :name
+    =f.text_field :name
+
+    =f.submit :value => "#{t('user.signin_button')}", :class => 'submit_button'

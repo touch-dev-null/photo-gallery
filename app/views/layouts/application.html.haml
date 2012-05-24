@@ -1,0 +1,27 @@
+!!! 5
+%html
+  %head
+    %meta{ :content => "text/html; charset=utf-8", "http-equiv" => "Content-type"}
+    %meta{:name => "keywords", :lang => "ru", :content => yield(:keywords) +' '+ APP_CONFIG['keywords']}
+    %meta{:name => "description", :lang => "ru", :content => yield(:description) +' '+ APP_CONFIG['description']}
+    %link{:rel => "shortcut icon", :href => "/favicon.ico"}
+    %title= yield(:title) ? yield(:title) : APP_CONFIG['site_name']
+    = csrf_meta_tag
+
+    = stylesheet_link_tag 'application'
+    = javascript_include_tag 'application'
+
+  %body
+    #wrap
+      #header
+        = render :partial => 'layouts/header'
+
+      #main
+        #yield
+          = yield
+
+        #popup_window{:style=>'display: none;'}
+          = yield :popup_window
+
+    #footer
+      =# render :partial => 'layouts/footer'

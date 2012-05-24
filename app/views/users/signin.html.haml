@@ -1,0 +1,9 @@
+#sign_in
+  =form_for :user, :url => signin_users_path do |f|
+    =f.label :login
+    =f.text_field :login
+
+    =f.label :password
+    =f.password_field :password
+
+    =f.submit :value => "#{t('user.signin_button')}", :class => 'submit_button'

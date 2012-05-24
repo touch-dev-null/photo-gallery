@@ -1,0 +1,5 @@
+- if @photos.blank?
+  #gallery_no_photos
+    =t('gallery.no_photos_in_this_gallery')
+    =link_to t('gallery.upload_photos?'), new_user_gallery_photo_path(current_user, @gallery)
+- else

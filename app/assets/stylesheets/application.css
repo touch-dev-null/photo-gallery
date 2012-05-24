@@ -11,3 +11,41 @@
  *= require_self
  *= require_tree .
 */
+
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
+#wrap {
+    position: relative;
+    min-height: 100%;
+    width: 1000px;
+    margin: 0 auto;
+}
+
+#main {
+    overflow:auto;
+    padding-bottom: 50px;
+}
+
+#yield {
+    padding: 40px 0;
+}
+
+#footer {
+    position: relative;
+    margin: -50px auto 0 auto;
+    height: 50px;
+    clear:both;
+    width: 1000px;
+}
+
+
+body:before {
+    content:"";
+    height:100%;
+    float:left;
+    width:0;
+    margin-top:-32767px;
+}
