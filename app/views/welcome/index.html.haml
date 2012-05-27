@@ -1,1 +1,5 @@
-hello
+- if @galleries.blank?
+
+- else
+  - @galleries.each do |gallery|
+    = link_to(image_tag(gallery.photos.first.photo.url(:small)), user_gallery_path(current_user, gallery))

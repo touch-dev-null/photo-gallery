@@ -3,6 +3,10 @@ class ApplicationController < ActionController::Base
 
   private
 
+  def gallery_single_mode?
+    APP_CONFIG['gallery_mode'].eql?('single')
+  end
+
   def authenticate_user!
     redirect_to admin_signin_path unless current_user
   end

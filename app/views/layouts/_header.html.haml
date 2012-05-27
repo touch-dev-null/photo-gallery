@@ -4,7 +4,7 @@
 #actions
   - if user_loggin_in?
     =link_to t('.create_gallery'), new_user_gallery_path(current_user)
-    =link_to t('.upload_photo'), '#'
+    =link_to t('.upload_photo'), new_user_gallery_photo_path(current_user, @gallery) if @gallery
     =link_to t('.Statistic'), '#'
     =link_to t('.logout'), logout_path
   - else
