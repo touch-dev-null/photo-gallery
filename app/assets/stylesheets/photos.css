@@ -1,0 +1,29 @@
+.gallery_thumb_small {
+    width: 160px;
+    height: 160px;
+}
+
+.gallery_preview_small {
+    width: 164px;
+}
+
+.gallery_name_small {
+    width: 164px;
+    text-align: center;
+    line-height: 30px;
+}
+
+
+.gallery_preview {
+    float: left;
+    margin-right: 20px;
+}
+
+.gallery_thumb {
+    float: left;
+}
+
+.gallery_thumb img {
+    padding: 2px;
+    border: 1px solid #666666;
+}

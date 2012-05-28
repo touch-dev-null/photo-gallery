@@ -3,5 +3,13 @@
     =t('gallery.no_photos_in_this_gallery')
     =link_to t('gallery.upload_photos?'), new_user_gallery_photo_path(current_user, @gallery)
 - else
-  - @photos.each do |photo|
-    = image_tag(photo.photo.url(:thumb))
+
+  #selected_photo
+
+  #photos
+
+    - @photos.each do |photo|
+      = link_to_photo @gallery, photo
+
+:javascript
+  $('#photos').find('a')[0].click();

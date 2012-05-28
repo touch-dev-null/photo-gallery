@@ -1,0 +1,17 @@
+#selected_photo,
+#photos {
+    float: left;
+}
+
+#selected_photo {
+    width: 730px;
+}
+
+#photos {
+    width: 270px;
+}
+
+#photos .photo_preview {
+    float: left;
+    margin-left: 10px;
+}

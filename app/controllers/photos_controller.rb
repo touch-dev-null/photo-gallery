@@ -8,8 +8,9 @@ class PhotosController < ApplicationController
   end
 
   def show
-    @gallery  = Gallery.find_by_url_name(params[:id])
-    @photos   = @gallery.photos
+    #@gallery  = Gallery.find_by_url_name(params[:gallery_id])
+    #@photos   = @gallery.photos
+    @photo = Photo.find(params[:id])
   end
 
   def create
