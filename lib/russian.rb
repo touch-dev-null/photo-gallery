@@ -46,7 +46,8 @@ class String
       'ь' => '',
       'э' => 'e',
       'ю' => 'ju',
-      'я' => 'ja'
+      'я' => 'ja',
+      ' ' => '-'
     }
 
     converted_string = ''
