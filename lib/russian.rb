@@ -52,7 +52,7 @@ class String
     converted_string = ''
 
     self.downcase.split('').each do |char|
-      converted_string += chars[char] unless chars[char].nil?
+      converted_string += chars[char].nil? ? char : chars[char]
     end
 
     converted_string
