@@ -3,7 +3,7 @@ class GalleriesController < ApplicationController
   before_filter :authenticate_user!, :except => [:show]
 
   def show
-    @gallery  = Gallery.find(params[:id])
+    @gallery  = Gallery.find_by_url_name(params[:id])
     @photos   = @gallery.photos
   end
 
