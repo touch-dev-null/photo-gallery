@@ -19,7 +19,11 @@ PhotoGallery::Application.routes.draw do
     end
 
     resources :galleries do
-      resources :photos
+      resources :photos do
+        collection do
+          post :find_by_identifier
+        end
+      end
     end
   end
 

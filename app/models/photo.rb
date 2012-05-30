@@ -4,6 +4,8 @@ class Photo < ActiveRecord::Base
 
   attr_accessible :photo, :user_id
 
+  before_save :generate_identifier
+
   has_attached_file :photo,
                     :styles => {
                         :mini => {
@@ -53,6 +55,12 @@ class Photo < ActiveRecord::Base
       final_height = final_width * ratio
       "#{final_height.round}x#{final_width.round}!"
     end
+  end
+
+  private
+
+  def generate_identifier
+    self.identifier = (Digest::SHA1.hexdigest (self.photo_file_size + Time.now.to_i).to_s)[0..10]
   end
 
 end
