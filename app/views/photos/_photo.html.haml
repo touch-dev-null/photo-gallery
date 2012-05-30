@@ -1,0 +1,4 @@
+= image_tag(photo.photo.url(:large))
+
+- if current_user && photo.user == current_user
+  = link_to t('.delete'), user_gallery_photo_path(photo.user, photo.gallery, photo), :method => :delete

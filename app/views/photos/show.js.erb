@@ -1,4 +1,4 @@
 $(function(){
-  var photo = "<%= escape_javascript(image_tag(@photo.photo.url(:large), :width => 730)) %>";
-  $("#selected_photo").html(photo);
+  var content = "<%= escape_javascript(render(:partial => 'photo', :locals => {:photo => @photo})) %>";
+  $("#selected_photo").html(content);
 });

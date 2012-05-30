@@ -8,16 +8,20 @@ class PhotosController < ApplicationController
   end
 
   def show
-    #@gallery  = Gallery.find_by_url_name(params[:gallery_id])
-    #@photos   = @gallery.photos
     @photo = Photo.find(params[:id])
   end
 
   def create
     @gallery  = Gallery.find_by_url_name(params[:gallery_id])
-    #binding.pry
     @photo  = @gallery.photos.build(params[:photo].merge!(:user_id => current_user.id))
     @photo.save ? redirect_to(user_gallery_path(current_user, @gallery)) : redirect_to(action => :new)
+  end
+
+  def destroy
+    @photo = Photo.find(params[:id])
+    @gallery = @photo.gallery
+    @photo.destroy
+    redirect_to user_gallery_path(current_user, @gallery)
   end
 
 end

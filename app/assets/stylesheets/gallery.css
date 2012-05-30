@@ -1,10 +1,19 @@
+#gallery_show {
+    padding: 10px;
+    background-color: #1E1E1D;
+    border-top: solid 1px #666;
+    border-right: solid 1px #2D2D2D;
+    border-left: solid 1px #2D2D2D;
+    border-bottom: solid 1px #2D2D2D;
+}
+
 #selected_photo,
 #photos {
     float: left;
 }
 
 #selected_photo {
-    width: 730px;
+    width: 708px;
 }
 
 #photos {
