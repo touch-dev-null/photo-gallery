@@ -1,6 +1,6 @@
 class PhotosController < ApplicationController
 
-  before_filter :authenticate_user!, :except => [:list, :show]
+  before_filter :authenticate_user!, :except => [:list, :show, :find_by_identifier]
 
   def new
     @gallery  = Gallery.find_by_url_name(params[:gallery_id])
