@@ -1,5 +1,7 @@
 class PhotosController < ApplicationController
 
+  skip_before_filter :verify_authenticity_token, :only => [:create]
+
   before_filter :authenticate_user!, :except => [:list, :show, :find_by_identifier]
 
   def new
@@ -27,8 +29,9 @@ class PhotosController < ApplicationController
 
   def create
     @gallery  = Gallery.find_by_url_name(params[:gallery_id])
-    @photo    = @gallery.photos.build(params[:photo].merge!(:user_id => current_user.id))
-    @photo.save ? redirect_to(user_gallery_path(current_user, @gallery)) : redirect_to(action => :new)
+    @photo    = @gallery.photos.build(:photo => params['photo'], :user_id => User.first.id)
+    @photo.save # ? redirect_to(user_gallery_path(current_user, @gallery)) : redirect_to(:action => :new)
+    render :nothing => true
   end
 
   def destroy

@@ -1,0 +1,18 @@
+#img-container {
+
+}
+
+#img-container ul {
+    list-style-type: none;
+}
+
+#img-container ul li {
+    float: left;
+    width: 224px;
+    text-align: center;
+    overflow: hidden;
+}
+
+#img-container ul li div.filename {
+    font-size: 10px;
+}

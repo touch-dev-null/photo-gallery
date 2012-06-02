@@ -1,5 +1,199 @@
-= form_for [current_user, @gallery, @photo], :html => { :multipart => true } do |f|
-  = f.label :article, t('.photo')
-  = f.file_field :photo
+#div
+  =file_field_tag :photo, :id => 'file-field', :multipart => true
 
-  = f.submit
+  = button_tag t('.upload-all'), :id =>"upload-all"
+  = button_tag t('.cancel-all'), :id =>"cancel-all"
+
+
+#console{:style => 'display: none;'}
+
+#info-count
+#info-size
+
+
+#drop-files-here
+
+  #img-container
+    %ul{:id => "img-list"}
+
+
+
+
+
+:javascript
+  $(document).ready(function() {
+      //thanks habrahabr ;) - http://habrahabr.ru/post/109079/
+
+      // Console
+      var console = $("#console");
+
+      // Selected files info
+      var countInfo = $("#info-count");
+      var sizeInfo  = $("#info-size");
+
+      // Ul list
+      var imgList = $('#img-list');
+
+      // Container for drag and drop
+      var dropBox = $('#img-container');
+
+      // Counters
+      var imgCount = 0;
+      var imgSize = 0;
+
+      var fileInput = $('#file-field');
+
+      fileInput.damnUploader({
+          url: '#{user_gallery_photos_path(@gallery.user, @gallery)}',
+          fieldName:  'photo',
+          dropBox: dropBox,
+
+          onSelect: function(file) {
+              addFileToQueue(file);
+              return false;
+          },
+
+          onAllComplete: function() {
+              log('<span style="color: blue;">*** #{t(".console-uploads-done")} ***</span>');
+              imgCount = 0;
+              imgSize = 0;
+              updateInfo();
+          }
+      });
+
+
+      function log(str) {
+          $('<p/>').html(str).prependTo(console);
+      }
+
+      function updateInfo() {
+          countInfo.text( (imgCount == 0) ? 'Изображений не выбрано' : ('Изображений выбрано: '+imgCount));
+          sizeInfo.text( (imgSize == 0) ? '-' : Math.round(imgSize / 1024));
+      }
+
+      function updateProgress(bar, value) {
+          var width = bar.width();
+          var bgrValue = -width + (value * (width / 100));
+          bar.attr('rel', value).css('background-position', bgrValue+'px center').text(value+'%');
+      }
+
+      function addFileToQueue(file) {
+          var li = $('<li/>').appendTo(imgList);
+          var title = $('<div class="filename"/>').text(file.name+' ').appendTo(li);
+          var cancelButton = $('<a/>').attr({
+              href: '#cancel',
+              title: 'отменить'
+          }).text('X').appendTo(title);
+
+
+          if(!file.fake) {
+
+              var imageType = /image.*/;
+              if (!file.type.match(imageType)) {
+                  log('Файл отсеян: `'+file.name+'` (тип '+file.type+')');
+                  return true;
+              }
+
+              var img = $('<img/>').appendTo(li);
+              var pBar = $('<div/>').addClass('progress').attr('rel', '0').text('0%').appendTo(li);
+
+              if($.support.fileReading) {
+                  var reader = new FileReader();
+                  reader.onload = (function(aImg) {
+                      return function(e) {
+                          aImg.attr('src', e.target.result);
+                          aImg.attr('width', 150);
+                      };
+                  })(img);
+                  reader.readAsDataURL(file);
+              }
+
+              log('Картинка добавлена: `'+file.name + '` (' +Math.round(file.size / 1024) + ' Кб)');
+              imgSize += file.size;
+          } else {
+              log('Файл добавлен: '+file.name);
+          }
+
+          imgCount++;
+          updateInfo();
+
+          var uploadItem = {
+              file: file,
+              onProgress: function(percents) {
+                  updateProgress(pBar, percents);
+              },
+              onComplete: function(successfully, data, errorCode) {
+                  if(successfully) {
+                      log('Файл `'+this.file.name+'` загружен, полученные данные:<br/>*****<br/>'+data+'<br/>*****');
+                  } else {
+                      if(!this.cancelled) {
+                          log('<span style="color: red;">Файл `'+this.file.name+'`: ошибка при загрузке. Код: '+errorCode+'</span>');
+                      }
+                  }
+              }
+          };
+
+          var queueId = fileInput.damnUploader('addItem', uploadItem);
+
+          cancelButton.click(function() {
+              fileInput.damnUploader('cancel', queueId);
+              li.remove();
+              imgCount--;
+              imgSize -= file.fake ? 0 : file.size;
+              updateInfo();
+              log(file.name+' удален из очереди');
+              return false;
+          });
+
+          return uploadItem;
+      }
+
+      dropBox.bind({
+          dragenter: function() {
+              $(this).addClass('highlighted');
+              return false;
+          },
+          dragover: function() {
+              return false;
+          },
+          dragleave: function() {
+              $(this).removeClass('highlighted');
+              return false;
+          }
+      });
+
+
+      $("#upload-all").click(function() {
+          fileInput.damnUploader('startUpload');
+      });
+
+      $("#cancel-all").click(function() {
+          fileInput.damnUploader('cancelAll');
+          imgCount = 0;
+          imgSize = 0;
+          updateInfo();
+          log('*** Все загрузки отменены ***');
+          imgList.empty();
+      });
+
+
+      if(!$.support.fileSelecting) {
+          log('Ваш браузер не поддерживает выбор файлов (загрузка будет осуществлена обычной отправкой формы)');
+          $("#dropBox-label").text('если бы ты использовал хороший браузер, файлы можно было бы перетаскивать прямо в область ниже!');
+      } else {
+          if(!$.support.fileReading) {
+              log('* Ваш браузер не умеет читать содержимое файлов (миниатюрки не будут показаны)');
+          }
+          if(!$.support.uploadControl) {
+              log('* Ваш браузер не умеет следить за процессом загрузки (progressbar не работает)');
+          }
+          if(!$.support.fileSending) {
+              log('* Ваш браузер не поддерживает объект FormData (отправка с ручной формировкой запроса)');
+          }
+          log('Выбор файлов поддерживается');
+      }
+      log('*** Проверка поддержки ***');
+
+
+  });
+

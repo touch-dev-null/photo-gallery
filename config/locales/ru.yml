@@ -1,0 +1,12 @@
+ru:
+  user:
+    signin_button: 'Войти'
+  gallery:
+    create_new_gallery: 'Создать новую галлерею'
+    no_photos_in_this_gallery: 'Нет загруженных фотографий'
+    upload_photos?: 'Загрузить фото?'
+  photos:
+    new:
+      upload-all: 'Загрузить выбранные фото'
+      cancel-all: 'Удалить выбранные фото'
+      console-uploads-done: 'Все загрузки завершены!'

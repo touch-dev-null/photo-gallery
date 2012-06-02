@@ -9,3 +9,8 @@ en:
     create_new_gallery: 'Create new gallery'
     no_photos_in_this_gallery: 'No photos uploaded yet'
     upload_photos?: 'Upload photos?'
+  photos:
+    new:
+      upload-all: 'Upload photos'
+      cancel-all: 'Remove selected photos'
+      console-uploads-done: 'Все загрузки завершены!'
