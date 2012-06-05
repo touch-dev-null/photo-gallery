@@ -8,7 +8,7 @@ gem 'rails', '3.2.3'
 gem 'mysql2', '0.3.11'
 gem 'haml', '3.1.4'
 
-gem "paperclip", "~> 3.0"
+gem 'mini_magick'
 
 gem 'rb-readline'
 

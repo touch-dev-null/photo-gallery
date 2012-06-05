@@ -44,7 +44,7 @@
       var fileInput = $('#file-field');
 
       fileInput.damnUploader({
-          url: '#{user_gallery_photos_path(@gallery.user, @gallery)}',
+          url: '#{upload_photo_user_gallery_photos_path(@gallery.user, @gallery)}',
           fieldName:  'photo',
           dropBox: dropBox,
 

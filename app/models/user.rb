@@ -3,6 +3,7 @@ class User < ActiveRecord::Base
 
   has_many :galleries
   has_many :photos
+  has_many :scheduled_photos, :dependent => :destroy
 
   before_save :encrypt_password
 

@@ -1,6 +1,6 @@
 class PhotosController < ApplicationController
 
-  skip_before_filter :verify_authenticity_token, :only => [:create]
+  skip_before_filter :verify_authenticity_token, :only => [:upload_photo]
 
   before_filter :authenticate_user!, :except => [:list, :show, :find_by_identifier]
 
@@ -31,6 +31,27 @@ class PhotosController < ApplicationController
     @gallery  = Gallery.find_by_url_name(params[:gallery_id])
     @photo    = @gallery.photos.build(:photo => params['photo'], :user_id => User.first.id)
     @photo.save # ? redirect_to(user_gallery_path(current_user, @gallery)) : redirect_to(:action => :new)
+    render :nothing => true
+  end
+
+  def upload_photo
+    @gallery  = Gallery.find_by_url_name(params[:gallery_id])
+
+    name      = params['photo'].original_filename
+    directory = @gallery.directory_path
+    Dir.mkdir(Rails.public_path + directory) unless File.directory?(Rails.public_path + directory)
+
+    upload_path = File.join(Rails.public_path + directory, name)
+
+    File.open(upload_path, "wb") { |f| f.write(params['photo'].read) }
+
+    scheduled_photo = @gallery.scheduled_photos.build(:user_id    => current_user.id,
+                                    :status     => 'pending',
+                                    :photo_path => File.join(directory, name))
+
+    scheduled_photo.save
+
+    #binding.pry
     render :nothing => true
   end
 

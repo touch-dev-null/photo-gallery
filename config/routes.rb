@@ -22,6 +22,7 @@ PhotoGallery::Application.routes.draw do
       resources :photos do
         collection do
           post :find_by_identifier
+          post :upload_photo
         end
       end
     end

@@ -5,7 +5,7 @@ module GalleriesHelper
       img_box     = content_tag(:div, 'no-photo', :class => "gallery_thumb gallery_thumb_#{img_size.to_s}")
       label_box   = content_tag(:div, gallery.name, :class => "gallery_name gallery_name_#{img_size.to_s}")
     else
-      img_box     = content_tag(:div, image_tag(gallery_random_photo(gallery).photo.url(img_size)), :class => "gallery_thumb gallery_thumb_#{img_size.to_s}")
+      img_box     = content_tag(:div, image_tag(gallery_random_photo(gallery).url(img_size)), :class => "gallery_thumb gallery_thumb_#{img_size.to_s}")
       label_box   = content_tag(:div, gallery.name, :class => "gallery_name gallery_name_#{img_size.to_s}")
     end
 
