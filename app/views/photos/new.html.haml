@@ -1,3 +1,5 @@
+=link_to t('.back_to_gallery'), user_gallery_path(current_user, @gallery)
+
 #div
   =file_field_tag :photo, :id => 'file-field', :multipart => true
 
@@ -15,7 +17,6 @@
 
   #img-container
     %ul{:id => "img-list"}
-
 
 
 

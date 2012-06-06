@@ -45,9 +45,10 @@ loop do
         #create photo directory
         Dir.mkdir(gallery_photo_dir) unless File.directory?(gallery_photo_dir)
 
+        #http://www.imagemagick.org/script/command-line-processing.php#geometry
         photo_options = {
           :mini => {
-            :geometry => '124x124>',
+            :geometry => '124x124!',
             :quality => 85,
             :format => 'jpg'
           },
@@ -74,7 +75,21 @@ loop do
           Dir.mkdir(gallery_photo_dir + "/#{size.to_s}") unless File.directory?(gallery_photo_dir + "/#{size.to_s}")
           #TODO rescue
           image = MiniMagick::Image.open(original_photo_path)
-          image.resize options[:geometry]
+
+          case size
+            when :mini
+              if image[:width] < image[:height]
+                remove = ((image[:height] - image[:width])/2).round
+                image.shave("0x#{remove}")
+              elsif image[:width] > image[:height]
+                remove = ((image[:width] - image[:height])/2).round
+                image.shave("#{remove}x0")
+              end
+              image.resize("#{124}x#{124}")
+            else
+              image.resize options[:geometry]
+          end
+
           image.write  gallery_photo_dir + "/#{size.to_s}/" + original_filename
         end
 
