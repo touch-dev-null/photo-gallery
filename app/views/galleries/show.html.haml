@@ -33,7 +33,7 @@
       identifier = window.location.hash;
       open_photo_by_identifier(identifier);
     } else {
-      open_photo_by_identifier('#{@photos.first.identifier}');
+      open_photo_by_identifier('##{@photos.first.identifier}');
       //$('#photos').find('a')[0].click();
     }
   }
