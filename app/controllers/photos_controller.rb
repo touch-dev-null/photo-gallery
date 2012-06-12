@@ -1,5 +1,7 @@
 class PhotosController < ApplicationController
 
+  require 'fileutils'
+
   skip_before_filter :verify_authenticity_token, :only => [:upload_photo]
 
   before_filter :authenticate_user!, :except => [:list, :show, :find_by_identifier]
@@ -59,7 +61,10 @@ class PhotosController < ApplicationController
     @photo = Photo.find(params[:id])
     @gallery = @photo.gallery
 
-
+    #delete converted photos
+    FileUtils.rm_rf(Rails.public_path + @gallery.directory_path + "/#{@photo.id}")
+    #delete photo original
+    FileUtils.rm_rf(Rails.public_path + @gallery.directory_path + "/#{@photo.photo_file_name}")
 
     @photo.destroy
     redirect_to user_gallery_path(current_user, @gallery)
