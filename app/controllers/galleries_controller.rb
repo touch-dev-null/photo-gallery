@@ -5,6 +5,7 @@ class GalleriesController < ApplicationController
   def show
     @gallery  = Gallery.find_by_url_name(params[:id])
     @photos   = @gallery.photos
+    @scheduled_photos = @gallery.scheduled_photos.count
   end
 
   def new

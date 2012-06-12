@@ -1,5 +1,9 @@
 #gallery_show
 
+  #gallery_scheduled_photos
+    = "#{t('.photos_in_queue')} #{@scheduled_photos}" if @scheduled_photos > 0
+
+
   - if @photos.blank?
     #gallery_no_photos
       =t('gallery.no_photos_in_this_gallery')
