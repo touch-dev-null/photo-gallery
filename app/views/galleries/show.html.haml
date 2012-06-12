@@ -7,7 +7,7 @@
   - if @photos.blank?
     #gallery_no_photos
       =t('gallery.no_photos_in_this_gallery')
-      =link_to t('gallery.upload_photos?'), new_user_gallery_photo_path(current_user, @gallery)
+      = link_to t('gallery.upload_photos?'), new_user_gallery_photo_path(current_user, @gallery) if can_upload?(@gallery)
   - else
 
     #selected_photo
@@ -24,15 +24,16 @@
 :javascript
   $(document).ready(function() {
     add_identifier_to_links();
-    initial_open_photo();
     $("#photos").niceScroll();
+    initial_open_photo();
   });
 
   function initial_open_photo() {
     if (window.location.hash.length > 0) {
       open_photo_by_identifier();
     } else {
-      $('#photos').find('a')[0].click();
+      open_photo_by_identifier('#{@photos.first}');
+      //$('#photos').find('a')[0].click();
     }
   }
 

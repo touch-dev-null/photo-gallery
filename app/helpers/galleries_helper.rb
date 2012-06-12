@@ -20,4 +20,8 @@ module GalleriesHelper
     random_photo_id = gallery.photo_ids.sample #ruby 1.9, 'choice' for 1.8.7
     gallery.photos.where(:id => random_photo_id).first
   end
+
+  def can_upload?(gallery)
+    return true
+  end
 end
