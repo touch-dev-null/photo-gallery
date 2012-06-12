@@ -21,7 +21,8 @@ module GalleriesHelper
     gallery.photos.where(:id => random_photo_id).first
   end
 
-  def can_upload?(gallery)
-    return true
+  def can_gallery_upload?
+    return false if current_user.blank?
+    return current_user.gallery_ids.include?(@gallery.id)
   end
 end
