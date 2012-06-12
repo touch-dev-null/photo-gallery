@@ -28,6 +28,10 @@
     overflow: hidden;
 }
 
+#photos * {
+    border: none;
+}
+
 #photos .photo_preview {
     float: left;
     margin-left: 10px;

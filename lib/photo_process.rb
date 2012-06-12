@@ -86,6 +86,15 @@ loop do
                 image.shave("#{remove}x0")
               end
               image.resize("#{124}x#{124}")
+            when :small
+              if image[:width] < image[:height]
+                remove = ((image[:height] - image[:width])/2).round
+                image.shave("0x#{remove}")
+              elsif image[:width] > image[:height]
+                remove = ((image[:width] - image[:height])/2).round
+                image.shave("#{remove}x0")
+              end
+              image.resize("#{122}x#{166}")
             when :large
               if image[:height] > image[:width]
                 image.resize '400x600>'

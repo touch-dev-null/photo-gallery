@@ -26,11 +26,11 @@ html, body {
 
 #main {
     overflow:auto;
-    padding-bottom: 50px;
+
 }
 
 #yield {
-    padding: 40px 0;
+    padding: 40px 0 10px 0;
 }
 
 #footer {
