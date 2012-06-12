@@ -6,6 +6,8 @@ class Gallery < ActiveRecord::Base
 
   before_save :generate_url_name
 
+  validates :name, :length => { :in => 1..255 }, :allow_blank => false
+
   attr_accessible :name
 
   def directory_path

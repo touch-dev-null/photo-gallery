@@ -9,13 +9,15 @@ class GalleriesController < ApplicationController
   end
 
   def new
-
+    @new_gallery = Gallery.new()
   end
 
   def create
-    @gallery = current_user.galleries.build(params[:gallery])
-    if @gallery.save
-      redirect_to user_gallery_path(current_user, @gallery)
+    @new_gallery = current_user.galleries.build(params[:gallery])
+    if @new_gallery.save
+      redirect_to user_gallery_path(current_user, @new_gallery)
+    else
+      render :action => 'new', :controller => 'galleries'
     end
   end
 end

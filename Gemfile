@@ -14,6 +14,9 @@ gem 'rb-readline'
 
 gem 'daemons'
 
+#display form errors
+gem 'dynamic_form'
+
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do

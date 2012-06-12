@@ -2,7 +2,9 @@
 
   %h2= t('gallery.create_new_gallery')
 
-  =form_for :gallery, :url => user_galleries_path do |f|
+  =form_for @new_gallery, :url => user_galleries_path(current_user) do |f|
+    = f.error_messages
+
     =f.label :name
     =f.text_field :name
 

@@ -32,8 +32,8 @@
     if (window.location.hash.length > 0) {
       identifier = window.location.hash;
       open_photo_by_identifier(identifier);
-    } else {
-      open_photo_by_identifier('##{@photos.first.identifier}');
+    } else if (#{@photos.length} != 0) {
+      open_photo_by_identifier('##{@photos.blank? ? '' : @photos.first.identifier}');
       //$('#photos').find('a')[0].click();
     }
   }
