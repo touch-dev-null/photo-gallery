@@ -49,3 +49,5 @@ gem 'jquery-rails'
 group :test, :development do
   gem 'pry'
 end
+
+gem 'newrelic_rpm'
