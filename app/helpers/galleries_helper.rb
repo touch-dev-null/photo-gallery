@@ -25,4 +25,12 @@ module GalleriesHelper
     return false if current_user.blank?
     return current_user.gallery_ids.include?(@gallery.id)
   end
+
+  def gallery_path_ui
+    return unless @gallery
+    separator       = ' &raquo; '
+    galleries_link  = link_to(t('.galleries'), root_path)
+    gallery_name    = @gallery.name
+    return [galleries_link, gallery_name].join(separator).html_safe
+  end
 end

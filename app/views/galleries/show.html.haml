@@ -1,7 +1,8 @@
 #gallery_show
 
   #gallery_scheduled_photos
-    = "#{t('.photos_in_queue')} #{@scheduled_photos}" if @scheduled_photos > 0
+    = gallery_path_ui
+    = "(#{t('.photos_in_queue')} #{@scheduled_photos})" if @scheduled_photos > 0
 
 
   - if @photos.blank?
