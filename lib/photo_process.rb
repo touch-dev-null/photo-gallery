@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
 
-ENV["RAILS_ENV"] ||= "development"
+ENV["RAILS_ENV"] ||= "production"
 
 require File.dirname(__FILE__) + "/../config/environment"
 
@@ -9,11 +9,10 @@ logger = Logger.new("#{Rails.root}/log/photo_process.log")
 logger.info("Starting Daemon #{Time.now}")
 
 loop do
-  sleep(5)
-  logger.info(ScheduledPhoto.count)
+  sleep(35)
 
   if ScheduledPhoto.where(:status => 'pending').count == 0
-    logger.info("#{Time.now} - Nothing to do, sleeping")
+    #logger.info("#{Time.now} - Nothing to do, sleeping")
     next
   end
 
