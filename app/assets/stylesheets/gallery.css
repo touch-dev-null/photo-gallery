@@ -42,3 +42,40 @@
     text-align: center;
     font-size: 10px;
 }
+
+.gallery_container {
+    width: 400px;
+    height: 200px;
+    float: left;
+    border: 0px solid green;
+}
+
+.gallery_container {
+    margin-left: 50px;
+    margin-bottom: 20px;
+}
+
+.gallery_container .gallery_preview,
+.gallery_container .gallery_info {
+    float: left;
+}
+
+.gallery_container .gallery_info .g_name {
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+.gallery_container .gallery_info .g_updated {
+    font-size: 10px;
+}
+
+.gallery_container .gallery_preview {
+    width: 164px;
+    height: 164px;
+    overflow: hidden;
+}
+
+.gallery_container .gallery_preview img {
+    padding: 2px;
+    border: 1px solid #666666;
+}

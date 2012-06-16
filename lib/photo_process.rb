@@ -17,9 +17,12 @@ loop do
     next
   end
 
+  #ScheduledPhoto.find_each(:conditions => { :status => 'pending_rebuild' }, :batch_size => 5 ) do |scheduled_photo|
+  #  photo   = Photo.where("photo_file_name LIKE  %#{original_filename}%")
+  #end
+
+
   ScheduledPhoto.find_each(:conditions => { :status => 'pending' }, :batch_size => 5 ) do |scheduled_photo|
-
-
       logger.info("#{Time.now} - Processing photo #{scheduled_photo.photo_path}")
       scheduled_photo.update_attribute(:status, 'running')
 
@@ -86,6 +89,15 @@ loop do
                 image.shave("#{remove}x0")
               end
               image.resize("#{124}x#{124}")
+            when :small
+              if image[:width] < image[:height]
+                remove = ((image[:height] - image[:width])/2).round
+                image.shave("0x#{remove}")
+              elsif image[:width] > image[:height]
+                remove = ((image[:width] - image[:height])/2).round
+                image.shave("#{remove}x0")
+              end
+              image.resize("#{160}x#{160}")
             when :large
               if image[:height] > image[:width]
                 image.resize '400x600>'
@@ -95,7 +107,7 @@ loop do
             else
               image.resize options[:geometry]
           end
-
+          #image.quality = options[:quality]
           image.write  gallery_photo_dir + "/#{size.to_s}/" + original_filename
         end
 
@@ -110,4 +122,23 @@ loop do
 
   end
 
+end
+
+
+def resize_and_crop(image, square_size)
+  geometry = to_geometry(
+      square_size, square_size)
+  if image[:width] < image[:height]
+    shave_off = ((
+    image[:height]-
+        image[:width])/2).round
+    image.shave("0x#{shave_off}")
+  elsif image[:width] > image[:height]
+    shave_off = ((
+    image[:width]-
+        image[:height])/2).round
+    image.shave("#{shave_off}x0")
+  end
+  image.resize(geometry)
+  return image
 end
