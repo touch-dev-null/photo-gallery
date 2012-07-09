@@ -21,7 +21,7 @@
 
 #photos {
     position: absolute;
-    width: 270px;
+    width: 300px;
     height: 508px;
     top: 10px;
     right: 10px;
@@ -36,6 +36,11 @@
     float: left;
     margin-left: 10px;
     margin-bottom: 4px;
+}
+
+#photos .photo_preview img {
+    padding: 2px;
+    border: 1px solid #666;
 }
 
 #photo-tools {
