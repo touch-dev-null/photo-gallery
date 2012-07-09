@@ -36,7 +36,7 @@
 
 #photos {
     height: 410px;
-    overflow-y: scroll;
+    margin-left: 40px;
 }
 
 #photos * {
