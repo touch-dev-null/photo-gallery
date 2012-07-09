@@ -15,17 +15,28 @@
 }
 
 #selected_photo {
-    width: 900px;
+    float: left;
+    width: 510px;
     text-align: center;
 }
 
+#selected_photo img {
+    padding: 2px;
+    border: 1px solid #666;
+    cursor: pointer;
+}
+
+#selected_photo img.long {
+    width: 500px;
+}
+
+#selected_photo img.tall {
+    height: 386px;
+}
+
 #photos {
-    position: absolute;
-    width: 300px;
-    height: 508px;
-    top: 10px;
-    right: 10px;
-    overflow: hidden;
+    height: 410px;
+    overflow-y: scroll;
 }
 
 #photos * {

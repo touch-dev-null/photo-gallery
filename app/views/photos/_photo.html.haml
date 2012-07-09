@@ -1,4 +1,4 @@
-= image_tag(photo.url(:large))
+= image_tag(photo.url(:large), :class => 'tall', :onclick => "popup_photo('#{photo.url(:large)}');")
 
 #photo-tools
   - if current_user && photo.user == current_user

@@ -10,23 +10,40 @@
       =t('gallery.no_photos_in_this_gallery')
       = link_to t('gallery.upload_photos?'), new_user_gallery_photo_path(@gallery.user, @gallery) if can_gallery_upload?
   - else
+    %table
+      %tr
+        %td{:style=>'width: 550px;'}
+          #selected_photo
+            &nbsp;
+            =# render :partial => 'photos/photo', :locals => {:photo => @photos.first}
+        %td
+          #photos
 
-    #selected_photo
-      &nbsp;
-      =# render :partial => 'photos/photo', :locals => {:photo => @photos.first}
-
-    #photos
-
-      - @photos.each do |photo|
-        = link_to_photo @gallery, photo
+            - @photos.each do |photo|
+              = link_to_photo @gallery, photo
 
   %br.clearfix
 
 :javascript
+
+  function popup_photo(photo_url) {
+    $('#popup_window').html('');
+    $('#popup_window').prepend('<img src=' + photo_url + ' />')
+    $('#popup_window').show();
+  }
+
+  //$(window).resize(function() {
+  //  alert('resize');
+  //});
+
   $(document).ready(function() {
     add_identifier_to_links();
     $("#photos").niceScroll();
     initial_open_photo();
+
+    $('#popup_window').bind('click', function() {
+      $('#popup_window').hide();
+    });
   });
 
   function initial_open_photo() {

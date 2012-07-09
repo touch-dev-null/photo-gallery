@@ -49,3 +49,18 @@ body:before {
     width:0;
     margin-top:-32767px;
 }
+
+#popup_window {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    text-align: center;
+    vertical-align:middle;
+    background-color: #000;
+    color: white;
+    z-index: 1000;
+    padding-top: 20px;
+    cursor: pointer;
+}
