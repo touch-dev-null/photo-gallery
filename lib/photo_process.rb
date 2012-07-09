@@ -2,10 +2,11 @@
 
 class PhotoProcess
 
+  ENV["RAILS_ENV"] ||= "production"
+
   require File.dirname(__FILE__) + "/../config/environment"
 
   def initialize
-    ENV["RAILS_ENV"] ||= "production"
     @logger = Logger.new("#{Rails.root}/log/photo_process.log")
     logger("Starting daemon")
     run
