@@ -14,6 +14,8 @@ gem 'rb-readline'
 
 gem 'daemons'
 
+gem 'thor'
+
 #display form errors
 gem 'dynamic_form'
 
