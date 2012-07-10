@@ -9,7 +9,12 @@ class Photo < ActiveRecord::Base
   attr_reader :mini, :small, :medium, :large, :original
 
   def url(size = :small)
-    "/uploads/galleries/#{self.gallery_id}/#{self.id}/#{size}/#{self.photo_file_name}"
+    case size
+      when :original
+        "/uploads/galleries/#{self.gallery_id}/#{self.photo_file_name}"
+      else
+        "/uploads/galleries/#{self.gallery_id}/#{self.id}/#{size}/#{self.photo_file_name}"
+    end
   end
 
   #has_attached_file :photo,
