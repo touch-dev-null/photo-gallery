@@ -26,25 +26,28 @@
 
 :javascript
 
-  function popup_photo(photo_url) {
+  function popup_photo(photo_url, width, height) {
     $('#popup_window').html('');
 
-    var img = new Image();
-    img.src = photo_url;
-
-    var popup_width = $('#popup_window').width();
-    var popup_height = $('#popup_window').height();
     var css_img_width = '';
     var css_img_height = '';
 
-    if (img.width > popup_width) {
-      css_img_width = popup_width - 100;
+    if (width == 0 || width == '') {
+      css_img_width = 800;
     } else {
-      css_img_width = img.width;
+      var popup_width = $('#popup_window').width();
+      var popup_height = $('#popup_window').height();
+      if (width > popup_width) {
+        css_img_width = popup_width - 100;
+      } else {
+        css_img_width = width;
+      }
     }
 
     $('#popup_window').prepend('<img src=' + photo_url + ' style="width: ' + css_img_width + 'px;" />')
     $('#popup_window').show();
+
+
   }
 
   //$(window).resize(function() {

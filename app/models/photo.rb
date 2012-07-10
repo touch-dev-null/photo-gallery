@@ -2,7 +2,7 @@ class Photo < ActiveRecord::Base
   belongs_to :user
   belongs_to :gallery
 
-  attr_accessible :photo, :user_id, :photo_file_name, :photo_content_type, :photo_file_size
+  attr_accessible :photo, :user_id, :photo_file_name, :photo_content_type, :photo_file_size, :width, :height
 
   #after_save :generate_identifier
 

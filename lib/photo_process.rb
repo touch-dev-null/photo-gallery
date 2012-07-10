@@ -105,6 +105,7 @@ class PhotoProcess
             end
             #image.quality = options[:quality]
             image.write  gallery_photo_dir + "/#{size.to_s}/" + original_filename
+            photo.update_attributes(:width => image[:width], :height => image[:height])
           end
 
           logger("Processing photo #{scheduled_photo.photo_path} finished")
