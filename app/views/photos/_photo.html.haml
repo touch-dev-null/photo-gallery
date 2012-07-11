@@ -1,5 +1,8 @@
 = image_tag(photo.url(:large), :class => 'tall', :onclick => "popup_photo('#{photo.url(:original)}', #{photo.width.to_i}, #{photo.height.to_i});")
 
 #photo-tools
+  #photo-exif
+    =photo_exif(photo)
+
   - if current_user && photo.user == current_user
     = link_to t('.delete_this_photo'), user_gallery_photo_path(photo.user, photo.gallery, photo), :method => :delete

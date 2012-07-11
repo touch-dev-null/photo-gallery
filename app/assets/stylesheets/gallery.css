@@ -59,6 +59,22 @@
     font-size: 10px;
 }
 
+#photo-exif {
+    text-align: left;
+}
+
+#photo-exif dt {
+  float: left;
+}
+#photo-exif dt {
+    width: 120px;
+}
+#photo-exif dd {
+    display: block;
+    margin-left: 120px;
+}
+
+
 .gallery_container {
     width: 400px;
     height: 200px;

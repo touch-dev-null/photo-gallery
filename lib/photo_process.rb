@@ -2,7 +2,7 @@
 
 class PhotoProcess
 
-  ENV["RAILS_ENV"] ||= "production"
+  ENV["RAILS_ENV"] ||= "development"
 
   require File.dirname(__FILE__) + "/../config/environment"
 
@@ -45,30 +45,7 @@ class PhotoProcess
           Dir.mkdir(gallery_photo_dir) unless File.directory?(gallery_photo_dir)
 
           #http://www.imagemagick.org/script/command-line-processing.php#geometry
-          photo_options = {
-              :mini => {
-                  :geometry => '124x124!',
-                  :quality => 85,
-                  :format => 'jpg'
-              },
-              :small => {
-                  :geometry => '160x160',
-                  :quality => 85,
-                  :format => 'JPG'
-              },
-              :thumb => {
-                  :geometry => '200x200',
-                  :quality => 100
-              },
-              :medium => {
-                  :geometry => '400x400',
-                  :quality => 100
-              },
-              :large => {
-                  :geometry => '800x700>',
-                  :quality => 100
-              }
-          }
+          photo_options = Photo::PHOTO_OPTIONS
 
           photo_options.each do |size, options|
             Dir.mkdir(gallery_photo_dir + "/#{size.to_s}") unless File.directory?(gallery_photo_dir + "/#{size.to_s}")
@@ -76,24 +53,8 @@ class PhotoProcess
             image = MiniMagick::Image.open(original_photo_path)
 
             case size
-              when :mini
-                if image[:width] < image[:height]
-                  remove = ((image[:height] - image[:width])/2).round
-                  image.shave("0x#{remove}")
-                elsif image[:width] > image[:height]
-                  remove = ((image[:width] - image[:height])/2).round
-                  image.shave("#{remove}x0")
-                end
-                image.resize("#{124}x#{124}")
-              when :small
-                if image[:width] < image[:height]
-                  remove = ((image[:height] - image[:width])/2).round
-                  image.shave("0x#{remove}")
-                elsif image[:width] > image[:height]
-                  remove = ((image[:width] - image[:height])/2).round
-                  image.shave("#{remove}x0")
-                end
-                image.resize("#{160}x#{160}")
+              when :mini, :small
+                resize_and_crop(image, options[:geometry])
               when :large
                 if image[:height] > image[:width]
                   image.resize '400x600>'
@@ -107,6 +68,8 @@ class PhotoProcess
             image.write  gallery_photo_dir + "/#{size.to_s}/" + original_filename
             photo.update_attributes(:width => image[:width], :height => image[:height])
           end
+
+          photo.set_exif
 
           logger("Processing photo #{scheduled_photo.photo_path} finished")
           scheduled_photo.update_attribute(:status, 'finished')
@@ -132,20 +95,15 @@ class PhotoProcess
   end
 
   def resize_and_crop(image, square_size)
-    geometry = to_geometry(
-        square_size, square_size)
     if image[:width] < image[:height]
-      shave_off = ((
-      image[:height]-
-          image[:width])/2).round
+      shave_off = ((image[:height] - image[:width])/2).round
       image.shave("0x#{shave_off}")
     elsif image[:width] > image[:height]
-      shave_off = ((
-      image[:width]-
-          image[:height])/2).round
+      shave_off = ((image[:width] - image[:height])/2).round
       image.shave("#{shave_off}x0")
     end
-    image.resize(geometry)
+    image.resize(square_size)
+
     return image
   end
 

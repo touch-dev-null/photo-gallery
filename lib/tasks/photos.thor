@@ -13,4 +13,11 @@ class Photos < Thor
       end
     end
   end
+
+  desc "update_exif", "Update EXIF of all photos"
+  def update_exif
+    Photo.find_each(:batch_size => 5 ) do |photo|
+      photo.set_exif ? puts("Success updated Photo #{photo.id}") : puts("Error update EXIF for Photo id #{photo.id}")
+    end
+  end
 end

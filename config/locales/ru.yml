@@ -1,4 +1,10 @@
 ru:
+  exif:
+    model: 'Model'
+    date_time: 'Date'
+    exposure_time: 'Exposure time'
+    f_number: 'F'
+    date_time_original: 'Date'
   user:
     signin_button: 'Войти'
   gallery:

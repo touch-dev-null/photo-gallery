@@ -16,6 +16,8 @@ gem 'daemons'
 
 gem 'thor'
 
+gem 'exifr'
+
 #display form errors
 gem 'dynamic_form'
 
@@ -50,6 +52,8 @@ gem 'jquery-rails'
 
 group :test, :development do
   gem 'pry'
+  gem 'rspec'
+  gem 'rspec-rails'
 end
 
 gem 'newrelic_rpm'
