@@ -74,6 +74,9 @@
     margin-left: 120px;
 }
 
+.gallery_table_layout td {
+    vertical-align: top;
+}
 
 .gallery_container {
     width: 400px;

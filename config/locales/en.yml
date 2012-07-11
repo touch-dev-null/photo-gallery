@@ -3,11 +3,15 @@
 
 en:
   exif:
+    photo_information: 'Photo information:'
     model: 'Model'
     date_time: 'Date'
     exposure_time: 'Exposure time'
     f_number: 'F'
+    focal_length_in_35mm_film: 'Focal length in 35mm'
+    focal_length: 'Focal length'
     date_time_original: 'Date'
+    iso: 'ISO'
   user:
     signin_button: 'Sign Up'
   gallery:

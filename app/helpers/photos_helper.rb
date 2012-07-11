@@ -13,17 +13,23 @@ module PhotosHelper
     # :contrast, :saturation, :sharpness, :subject_distance_range
 
     exif_attrs = {
-        t('exif.model')               => :model,
-        t('exif.exposure_time')       => :exposure_time,
-        t('exif.f_number')            => :f_number,
-        t('exif.date_time_original')  => :date_time_original
+        t('exif.model')                 => :model,
+        t('exif.exposure_time')         => :exposure_time,
+        t('exif.f_number')              => :f_number,
+        t('exif.iso')                   => :iso_speed_ratings,
+        t('exif.focal_length')               => :focal_length,
+        t('exif.focal_length_in_35mm_film')  => :focal_length_in_35mm_film,
+        t('exif.date_time_original')    => :date_time_original
     }
 
-    html_dl = ''
+    html = ''
+
     exif_attrs.each do |label, attr|
-      html_dl << content_tag(:dt, label)
-      html_dl << content_tag(:dd, photo.exif[attr])
+      next if photo.exif[attr].blank? || photo.exif[attr].to_s.eql?('0.0')
+
+      html << content_tag(:dt, label)
+      html << content_tag(:dd, photo.exif[attr])
     end
-    return content_tag(:dl, html_dl.html_safe)
+    return html.blank? ? '' : (t('exif.photo_information') + content_tag(:dl, html.html_safe)).html_safe
   end
 end
