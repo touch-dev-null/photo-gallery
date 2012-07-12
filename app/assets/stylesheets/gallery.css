@@ -118,3 +118,12 @@
 .gallery_container .gallery_info {
     width: 212px;
 }
+
+.delete_gallery {
+    color: red !important;
+    margin: 20px 0;
+}
+
+.delete_gallery a {
+    color: red !important;
+}

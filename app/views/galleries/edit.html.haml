@@ -1,0 +1,8 @@
+%h2= @gallery.name
+
+-#=form_for @gallery, :url => user_gallery_path(current_user, @gallery) do |f|
+-#  =f.label :hidden, t('.hidden gallery')
+-#  =f.check_box :hidden
+
+.delete_gallery
+  =link_to(t('gallery.delete_gallery'), user_gallery_path(current_user, @gallery), :method => 'delete', :confirm => t('common.are_you_shure?'))

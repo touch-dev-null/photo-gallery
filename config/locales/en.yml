@@ -16,6 +16,10 @@ en:
     signin_button: 'Sign Up'
   gallery:
     create_new_gallery: 'Create new gallery'
+    create_gallery: 'Create new gallery'
+    edit_gallery: 'Edit gallery'
+    upload_photo: 'Upload photo'
+    delete_gallery: 'Delete gallery'
     no_photos_in_this_gallery: 'No photos uploaded yet'
     upload_photos?: 'Upload photos?'
   galleries:
@@ -26,3 +30,5 @@ en:
       upload-all: 'Upload photos'
       cancel-all: 'Remove selected photos'
       console-uploads-done: 'Все загрузки завершены!'
+  common:
+    are_you_shure?: 'Are you shure?'
