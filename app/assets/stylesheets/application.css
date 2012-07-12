@@ -17,6 +17,10 @@ html, body {
     margin: 0;
 }
 
+body {
+    background: url(bg.png);
+}
+
 #wrap {
     position: relative;
     min-height: 100%;
