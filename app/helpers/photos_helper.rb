@@ -6,6 +6,8 @@ module PhotosHelper
   end
 
   def photo_exif(photo)
+    return 'No photo EXIF' if photo.exif.blank?
+
     # available exif attributes :
     # :software, :make, :date_time, :exposure_time, :f_number, :shutter_speed_value, :aperture_value
     # :iso_speed_ratings, :focal_length, :exposure_program, :date_time_original, :date_time_digitized
