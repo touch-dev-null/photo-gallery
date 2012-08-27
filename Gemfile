@@ -8,6 +8,8 @@ gem 'rails', '3.2.3'
 gem 'mysql2', '0.3.11'
 gem 'haml', '3.1.4'
 
+gem 'exception_notification', :require => 'exception_notifier'
+
 gem 'mini_magick'
 
 gem 'rb-readline'
