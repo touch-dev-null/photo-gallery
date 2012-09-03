@@ -23,10 +23,12 @@
         #selected_photo
       .span4
         #photo-select{:style=>'height: 500px; overflow: auto;'}
-          %ul.thumbnails
-            -@photos.each do |photo|
-              %li.span3
-                = link_to_photo @gallery, photo
+
+          -@photos.in_groups_of(3, false).each do |photos_slice|
+            %ul.thumbnails
+              -photos_slice.each do |photo|
+                %li.span4
+                  = link_to_photo @gallery, photo
 
 
 :javascript
