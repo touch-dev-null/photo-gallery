@@ -12,6 +12,6 @@
                 =link_to user_gallery_path(gallery.user, gallery), :class => 'thumbnail' do
                   = gallery.photos.blank? ? image_tag('no_picture.jpg') : image_tag(gallery_random_photo(gallery).url(:small))
 
-          .custom-thumb-description{:style => 'position: absolute; top: -6px; left: 196px;'}
+          .custom-thumb-description{:style => 'position: absolute; top: 1%; left: 44%;'}
             %h5= link_to gallery.name, user_gallery_path(gallery.user, gallery)
             %p= gallery.updated_at.strftime('%Y-%m-%d %H:%M')
