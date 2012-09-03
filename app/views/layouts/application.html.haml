@@ -4,6 +4,7 @@
     %meta{ :content => "text/html; charset=utf-8", "http-equiv" => "Content-type"}
     %meta{:name => "keywords", :lang => "ru", :content => yield(:keywords) +' '+ APP_CONFIG['keywords']}
     %meta{:name => "description", :lang => "ru", :content => yield(:description) +' '+ APP_CONFIG['description']}
+    %meta{:name => "viewport", :content => "width=device-width, initial-scale=1.0"}
     %link{:rel => "shortcut icon", :href => "/favicon.ico"}
     %title= yield(:title) ? yield(:title) : APP_CONFIG['site_name']
     = csrf_meta_tag
@@ -12,16 +13,14 @@
     = javascript_include_tag 'application'
 
   %body
-    #wrap
-      #header
-        = render :partial => 'layouts/header'
+    = render :partial => 'layouts/header'
 
-      #main
-        #yield
+
+    .container-fluid
+      .row-fluid
+        .span12
           = yield
 
-        #popup_window{:style=>'display: none;'}
-          = yield :popup_window
+      #popup_window{:style=>'display: none;'}
+        = yield :popup_window
 
-    #footer
-      =# render :partial => 'layouts/footer'

@@ -5,4 +5,4 @@
     =photo_exif(photo)
 
   - if current_user && photo.user == current_user
-    = link_to t('.delete_this_photo'), user_gallery_photo_path(photo.user, photo.gallery, photo), :method => :delete
+    = link_to t('.delete_this_photo'), user_gallery_photo_path(photo.user, photo.gallery, photo), :style=>'color: red; font-size: 10px;', :method => :delete

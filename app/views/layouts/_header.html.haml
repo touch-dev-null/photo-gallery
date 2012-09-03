@@ -1,14 +1,15 @@
-#site_name
-  =link_to APP_CONFIG['site_name'], root_path
+.navbar.navbar-inverse.navbar-fixed-top
+  .navbar-inner
+    .container-fluid
+      =link_to APP_CONFIG['site_name'], root_path, :class => 'brand'
 
-#actions
-  - if user_loggin_in?
-    =link_to t('gallery.create_gallery'), new_user_gallery_path(current_user)
-    =link_to t('gallery.edit_gallery'), edit_user_gallery_path(current_user, @gallery) if @gallery && can_gallery_upload?
-    =link_to t('gallery.upload_photo'), new_user_gallery_photo_path(current_user, @gallery) if @gallery && can_gallery_upload?
-    =link_to t('.Statistic'), '#'
-    =link_to t('.logout'), logout_path
-  - else
-    =link_to t('.login'), signin_users_path
-
-%br.clearfix
+      .pull-right
+        %ul.nav
+          -if user_loggin_in?
+            %li=link_to t('gallery.create_gallery'), new_user_gallery_path(current_user)
+            %li=link_to t('gallery.edit_gallery'), edit_user_gallery_path(current_user, @gallery) if @gallery && can_gallery_upload?
+            %li=link_to t('gallery.upload_photo'), new_user_gallery_photo_path(current_user, @gallery) if @gallery && can_gallery_upload?
+            %li=link_to t('.Statistic'), '#'
+            %li=link_to t('.logout'), logout_path
+          -else
+            %li=link_to t('.login'), signin_users_path

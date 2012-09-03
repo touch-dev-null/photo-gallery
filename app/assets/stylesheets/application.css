@@ -12,46 +12,24 @@
  *= require_tree .
 */
 
-html, body {
-    height: 100%;
-    margin: 0;
-}
-
 body {
-    background: url(bg.png);
+    padding-top: 60px;
+    background-color: #EEE !important;
 }
 
-#wrap {
-    position: relative;
-    min-height: 100%;
-    padding: 0 10px;
-    margin: 0 auto;
+#photo-exif {
+    font-size: 10px;;
 }
 
-#main {
-    overflow:auto;
-
+#photo-exif dt {
+  float: left;
 }
-
-#yield {
-    padding: 40px 0 10px 0;
+#photo-exif dt {
+    width: 120px;
 }
-
-#footer {
-    position: relative;
-    margin: -50px auto 0 auto;
-    height: 50px;
-    clear:both;
-    padding: 0 10px;
-}
-
-
-body:before {
-    content:"";
-    height:100%;
-    float:left;
-    width:0;
-    margin-top:-32767px;
+#photo-exif dd {
+    display: block;
+    margin-left: 120px;
 }
 
 #popup_window {

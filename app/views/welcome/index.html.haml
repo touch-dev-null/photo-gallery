@@ -1,11 +1,17 @@
 - if @galleries.blank?
 
 - else
-  - @galleries.each do |gallery|
-    =# link_to_gallery gallery
-    .gallery_container
-      .gallery_preview
-        = gallery.photos.blank? ? '&nbsp;'.html_safe : link_to(image_tag(gallery_random_photo(gallery).url(:small)), user_gallery_path(gallery.user, gallery))
-      .gallery_info
-        .g_name= link_to gallery.name, user_gallery_path(gallery.user, gallery)
-        .g_updated= gallery.updated_at
+  -#binding.pry
+  - @galleries.in_groups_of(3, false).each do |gallery_rows|
+    .row-fluid
+      - gallery_rows.each do |gallery|
+        .span4{:style => 'position: relative;'}
+          .custom-thumb
+            %ul.thumbnails
+              %li.span5
+                =link_to user_gallery_path(gallery.user, gallery), :class => 'thumbnail' do
+                  = gallery.photos.blank? ? image_tag('no_picture.jpg') : image_tag(gallery_random_photo(gallery).url(:small))
+
+          .custom-thumb-description{:style => 'position: absolute; top: -6px; left: 196px;'}
+            %h5= link_to gallery.name, user_gallery_path(gallery.user, gallery)
+            %p= gallery.updated_at.strftime('%Y-%m-%d %H:%M')

@@ -1,8 +1,16 @@
 #gallery_show
 
   #gallery_scheduled_photos
-    = gallery_path_ui
-    = "(#{t('.photos_in_queue')} #{@scheduled_photos})" if @scheduled_photos > 0
+    =# gallery_path_ui
+
+    %ul.breadcrumb
+      %li
+        =link_to('Galleries', root_path)
+        %span.divider
+          \/
+      %li.active
+        =@gallery.name
+        = "(#{t('.photos_in_queue')} #{@scheduled_photos})" if @scheduled_photos > 0
 
 
   - if @photos.blank?
@@ -10,19 +18,16 @@
       =t('gallery.no_photos_in_this_gallery')
       = link_to t('gallery.upload_photos?'), new_user_gallery_photo_path(@gallery.user, @gallery) if can_gallery_upload?
   - else
-    %table.gallery_table_layout
-      %tr
-        %td{:style=>'width: 550px;'}
-          #selected_photo
-            &nbsp;
-            =# render :partial => 'photos/photo', :locals => {:photo => @photos.first}
-        %td
-          #photos
+    .row-fluid
+      .span8
+        #selected_photo
+      .span4
+        #photo-select{:style=>'height: 500px; overflow: auto;'}
+          %ul.thumbnails
+            -@photos.each do |photo|
+              %li.span3
+                = link_to_photo @gallery, photo
 
-            - @photos.each do |photo|
-              = link_to_photo @gallery, photo
-
-  %br.clearfix
 
 :javascript
 
